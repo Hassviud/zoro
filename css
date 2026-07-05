@@ -1,0 +1,39 @@
+.modal-content {
+    background: white;
+    color: #1e293b;
+    width: 90%;
+    max-width: 450px;
+    margin: 50px auto; /* يضمن التوسط من الأعلى والأسفل */
+    padding: 30px;
+    border-radius: 20px;
+    position: relative;
+    
+    /* هذا الجزء يضمن توازن العناصر بالداخل */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* توسيط كل العناصر أفقياً */
+    text-align: center;  /* توسيط النصوص */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.alert-box {
+    width: 100%; /* تمدد الصندوق ليملأ العرض المتاح بالتساوي */
+    background: #fff4e5;
+    border-right: 5px solid #ffa117;
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.rip-container {
+    width: 100%; /* ضمان تساويه مع العناصر الأخرى */
+    background: #f1f5f9;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px dashed #6366f1;
+    margin-bottom: 20px;
+}
