@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bacher Store | Professional Edition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #6366f1;
+            --secondary: #a855f7;
+            --dark-bg: #0a0f1d;
+            --card-bg: #1e293b;
+            --text: #f8fafc;
+            --accent: #10b981;
+            --iptv-color: #ff0055; /* لون مميز للـ IPTV */
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
+        body { background-color: var(--dark-bg); color: var(--text); scroll-behavior: smooth; overflow-x: hidden; }
+
+        /* Navbar */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 8%; background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .logo { font-size: 24px; font-weight: 900; color: var(--primary); text-decoration: none; }
+        .cart-trigger { position: relative; cursor: pointer; font-size: 22px; transition: 0.3s; }
+        .cart-trigger:hover { color: var(--secondary); }
+        .cart-count { 
+            position: absolute; top: -10px; right: -10px; 
+            background: var(--secondary); color: white; 
+            font-size: 11px; padding: 2px 7px; border-radius: 50%; border: 2px solid var(--dark-bg);
+        }
+
+        /* Container */
+        .container { padding: 40px 8%; }
+        .section-title { margin: 40px 0 25px; font-size: 26px; border-right: 4px solid var(--primary); padding-right: 15px; }
+
+        /* Products Grid */
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        
+        /* Card Styling */
+        .card { 
+            background: var(--card-bg); border-radius: 24px; padding: 30px; 
+            text-align: center; border: 1px solid rgba(255,255,255,0.05); transition: 0.4s;
+            position: relative; overflow: hidden;
+        }
+        .card:hover { transform: translateY(-10px); border-color: var(--primary); box-shadow: 0 15px 35px rgba(0,0,0,0.4); }
+
+        /* IPTV Specific Style */
+        .card.iptv-card i { color: var(--iptv-color); text-shadow: 0 0 15px rgba(255, 0, 85, 0.5); }
+        .card.iptv-card:hover { border-color: var(--iptv-color); }
+
+        .card i { font-size: 50px; color: var(--primary); margin-bottom: 20px; }
+        .price { font-size: 30px; font-weight: 900; color: var(--accent); margin: 15px 0; }
+
+        .btn-group { display: flex; flex-direction: column; gap: 10px; }
+        .btn { padding: 14px; border-radius: 14px; border: none; font-weight: 700; cursor: pointer; transition: 0.3s; font-size: 15px; }
+        .btn-cart { background: rgba(255,255,255,0.05); color: white; border: 1px solid rgba(255,255,255,0.1); }
+        .btn-buy { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; }
+        .btn:hover { transform: scale(1.03); opacity: 0.9; }
+
+        /* Professional Modal */
+        .modal { 
+            display: none; position: fixed; inset: 0; 
+            background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); z-index: 2000; 
+            justify-content: center; align-items: center; 
+        }
+        .modal-content { 
+            background: white; color: #1e293b; padding: 40px; 
+            border-radius: 30px; width: 95%; max-width: 450px; 
+            text-align: center; position: relative; animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes modalPop { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+        /* زر الإغلاق المصلح */
+        .close-modal { 
+            position: absolute; left: 20px; top: 20px; 
+            font-size: 28px; cursor: pointer; color: #94a3b8; 
+            transition: 0.3s; width: 35px; height: 35px; 
+            display: flex; align-items: center; justify-content: center;
+        }
+        .close-modal:hover { color: #ef4444; transform: rotate(90deg); }
+
+        .rip-box { 
+            background: #f8fafc; padding: 20px; border-radius: 20px; 
+            margin: 20px 0; border: 2px dashed #6366f1; 
+        }
+        .rip-text { font-size: 19px; font-weight: 900; color: #0f172a; letter-spacing: 1px; display: block; margin-bottom: 15px; }
+
+        .wa-btn { 
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            background: #25d366; color: white; text-decoration: none; 
+            padding: 18px; border-radius: 18px; font-weight: 800; transition: 0.3s;
+        }
+        .wa-btn:hover { background: #1eb956; transform: translateY(-3px); }
+
+        /* Trust Bar */
+        .trust-bar {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 30px; padding: 60px 8%; background: rgba(255, 255, 255, 0.02);
+            border-top: 1px solid rgba(255, 255, 255, 0.05); margin-top: 60px;
+        }
+        .trust-item { display: flex; align-items: center; gap: 15px; }
+        .trust-item i { font-size: 28px; color: var(--primary); }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="#" class="logo">BACHER STORE</a>
+    <div class="cart-trigger" onclick="openCart()">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="cart-count" id="cartCount">0</span>
+    </div>
+</nav>
+
+<div class="container">
+    <h2 class="section-title">العروض المميزة</h2>
+    <div class="products-grid">
+        <div class="card iptv-card">
+            <i class="fas fa-satellite-dish"></i>
+            <h3>IPTV 4K Ultra</h3>
+            <p>أكثر من 10,000 قناة + مكتبة أفلام</p>
+            <div class="price">15$</div>
+            <div class="btn-group">
+                <button class="btn btn-cart" onclick="addToCart('IPTV 4K', 15)">إضافة للسلة</button>
+                <button class="btn btn-buy" onclick="quickBuy('IPTV 4K', 15)">شراء الآن</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <i class="fab fa-steam"></i>
+            <h3>Steam Premium</h3>
+            <p>حسابات أصلية بضمان كامل</p>
+            <div class="price">20$</div>
+            <div class="btn-group">
+                <button class="btn btn-cart" onclick="addToCart('Steam Acc', 20)">إضافة للسلة</button>
+                <button class="btn btn-buy" onclick="quickBuy('Steam Acc', 20)">شراء الآن</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="trust-bar">
+    <div class="trust-item"><i class="fas fa-shield-check"></i> <div><h4>ثقة وأمان</h4><p>حقوقك محفوظة بالكامل</p></div></div>
+    <div class="trust-item"><i class="fas fa-undo"></i> <div><h4>استرداد الأموال</h4><p>ضمان في حال وجود خلل</p></div></div>
+</section>
+
+<div id="payModal" class="modal">
+    <div class="modal-content">
+        <div class="close-modal" onclick="closeModal()">&times;</div>
+        
+        <h3>تأكيد الطلب</h3>
+        <p style="background: #fef2f2; color: #b91c1c; padding: 10px; border-radius: 12px; font-size: 13px; margin: 20px 0; font-weight: bold;">
+            <i class="fas fa-history"></i> التسليم خلال 12 ساعة من التحويل.
+        </p>
+
+        <div class="rip-box">
+            <span style="color: #64748b; font-size: 14px; display: block; margin-bottom: 10px;">رقم الـ RIP للدفع (Baridimob):</span>
+            <span class="rip-text" id="ripValue">00799999004422427407</span>
+            <button onclick="copyRip()" style="background: #0f172a; color: white; border: none; padding: 8px 20px; border-radius: 10px; cursor: pointer; font-weight: bold;">نسخ الرقم <i class="fas fa-copy"></i></button>
+        </div>
+
+        <a href="https://wa.me/213XXXXXXXXX" class="wa-btn">
+            إرسال الوصل وتأكيد الطلب
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+</div>
+
+<script>
+    let cart = [];
+    
+    // إغلاق النافذة عند الضغط على X
+    function closeModal() {
+        document.getElementById('payModal').style.display = 'none';
+    }
+
+    function addToCart(n, p) {
+        cart.push({n, p});
+        document.getElementById('cartCount').innerText = cart.length;
+    }
+
+    function openCart() {
+        if(cart.length === 0) return alert("السلة فارغة!");
+        let total = cart.reduce((s, i) => s + i.p, 0);
+        quickBuy("إجمالي السلة", total);
+    }
+
+    function quickBuy(n, p) {
+        document.getElementById('payModal').style.display = 'flex';
+    }
+
+    function copyRip() {
+        navigator.clipboard.writeText("00799999004422427407");
+        alert("تم نسخ الرقم بنجاح!");
+    }
+
+    // إغلاق النافذة عند الضغط في أي مكان خارجها
+    window.onclick = function(event) {
+        let modal = document.getElementById('payModal');
+        if (event.target == modal) {
+            closeModal();
+        }
+    }
+</script>
+
+</body>
+</html>
