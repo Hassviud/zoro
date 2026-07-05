@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- إضافة وسم Cryptomus -->
+    <meta name="cryptomus" content="b859f939" />
+    
     <title>Bacher Store | Professional Edition</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -28,7 +31,7 @@
         .container { padding: 40px 8%; }
         .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
         .card { background: var(--card-bg); border-radius: 24px; padding: 30px; text-align: center; border: 1px solid rgba(255,255,255,0.05); }
-        .btn-buy { margin-top: 15px; padding: 12px 25px; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border: none; border-radius: 12px; cursor: pointer; font-weight: bold; }
+        .btn-buy { margin-top: 15px; padding: 12px 25px; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border: none; border-radius: 12px; cursor: pointer; font-weight: bold; width: 100%; }
 
         /* Modal */
         .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); z-index: 2000; overflow-y: auto; }
@@ -80,7 +83,7 @@
         </div>
 
         <form id="payment-form">
-            <button type="submit" class="btn-buy" style="width: 100%;">تأكيد وإرسال للواتساب</button>
+            <button type="submit" class="btn-buy">تأكيد وإرسال للواتساب</button>
         </form>
     </div>
 </div>
@@ -110,7 +113,6 @@
 
     document.getElementById('payment-form').onsubmit = function(e) {
         e.preventDefault();
-        // يمكنك تغيير الرابط هنا لرابط الواتساب الخاص بك
         window.location.href = "https://wa.me/213XXXXXXXXX";
     };
 </script>
