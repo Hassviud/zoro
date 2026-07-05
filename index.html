@@ -15,200 +15,104 @@
             --card-bg: #1e293b;
             --text: #f8fafc;
             --accent: #10b981;
-            --iptv-color: #ff0055; /* لون مميز للـ IPTV */
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
-        body { background-color: var(--dark-bg); color: var(--text); scroll-behavior: smooth; overflow-x: hidden; }
+        body { background-color: var(--dark-bg); color: var(--text); }
 
         /* Navbar */
-        nav {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 15px 8%; background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 1000;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
+        nav { padding: 15px 8%; background: rgba(15, 23, 42, 0.95); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); }
         .logo { font-size: 24px; font-weight: 900; color: var(--primary); text-decoration: none; }
-        .cart-trigger { position: relative; cursor: pointer; font-size: 22px; transition: 0.3s; }
-        .cart-trigger:hover { color: var(--secondary); }
-        .cart-count { 
-            position: absolute; top: -10px; right: -10px; 
-            background: var(--secondary); color: white; 
-            font-size: 11px; padding: 2px 7px; border-radius: 50%; border: 2px solid var(--dark-bg);
-        }
 
-        /* Container */
+        /* Products */
         .container { padding: 40px 8%; }
-        .section-title { margin: 40px 0 25px; font-size: 26px; border-right: 4px solid var(--primary); padding-right: 15px; }
-
-        /* Products Grid */
         .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        .card { background: var(--card-bg); border-radius: 24px; padding: 30px; text-align: center; border: 1px solid rgba(255,255,255,0.05); }
+        .btn-buy { margin-top: 15px; padding: 12px 25px; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border: none; border-radius: 12px; cursor: pointer; font-weight: bold; }
+
+        /* Modal */
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); z-index: 2000; overflow-y: auto; }
+        .modal-content {
+            background: white; color: #1e293b; width: 90%; max-width: 450px;
+            margin: 50px auto; padding: 30px; border-radius: 20px;
+            display: flex; flex-direction: column; align-items: center; text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2); position: relative;
+        }
+        .close-modal { position: absolute; left: 20px; top: 15px; font-size: 25px; cursor: pointer; }
         
-        /* Card Styling */
-        .card { 
-            background: var(--card-bg); border-radius: 24px; padding: 30px; 
-            text-align: center; border: 1px solid rgba(255,255,255,0.05); transition: 0.4s;
-            position: relative; overflow: hidden;
-        }
-        .card:hover { transform: translateY(-10px); border-color: var(--primary); box-shadow: 0 15px 35px rgba(0,0,0,0.4); }
-
-        /* IPTV Specific Style */
-        .card.iptv-card i { color: var(--iptv-color); text-shadow: 0 0 15px rgba(255, 0, 85, 0.5); }
-        .card.iptv-card:hover { border-color: var(--iptv-color); }
-
-        .card i { font-size: 50px; color: var(--primary); margin-bottom: 20px; }
-        .price { font-size: 30px; font-weight: 900; color: var(--accent); margin: 15px 0; }
-
-        .btn-group { display: flex; flex-direction: column; gap: 10px; }
-        .btn { padding: 14px; border-radius: 14px; border: none; font-weight: 700; cursor: pointer; transition: 0.3s; font-size: 15px; }
-        .btn-cart { background: rgba(255,255,255,0.05); color: white; border: 1px solid rgba(255,255,255,0.1); }
-        .btn-buy { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; }
-        .btn:hover { transform: scale(1.03); opacity: 0.9; }
-
-        /* Professional Modal */
-        .modal { 
-            display: none; position: fixed; inset: 0; 
-            background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); z-index: 2000; 
-            justify-content: center; align-items: center; 
-        }
-        .modal-content { 
-            background: white; color: #1e293b; padding: 40px; 
-            border-radius: 30px; width: 95%; max-width: 450px; 
-            text-align: center; position: relative; animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        @keyframes modalPop { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-
-        /* زر الإغلاق المصلح */
-        .close-modal { 
-            position: absolute; left: 20px; top: 20px; 
-            font-size: 28px; cursor: pointer; color: #94a3b8; 
-            transition: 0.3s; width: 35px; height: 35px; 
-            display: flex; align-items: center; justify-content: center;
-        }
-        .close-modal:hover { color: #ef4444; transform: rotate(90deg); }
-
-        .rip-box { 
-            background: #f8fafc; padding: 20px; border-radius: 20px; 
-            margin: 20px 0; border: 2px dashed #6366f1; 
-        }
-        .rip-text { font-size: 19px; font-weight: 900; color: #0f172a; letter-spacing: 1px; display: block; margin-bottom: 15px; }
-
-        .wa-btn { 
-            display: flex; align-items: center; justify-content: center; gap: 10px;
-            background: #25d366; color: white; text-decoration: none; 
-            padding: 18px; border-radius: 18px; font-weight: 800; transition: 0.3s;
-        }
-        .wa-btn:hover { background: #1eb956; transform: translateY(-3px); }
-
-        /* Trust Bar */
-        .trust-bar {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-            gap: 30px; padding: 60px 8%; background: rgba(255, 255, 255, 0.02);
-            border-top: 1px solid rgba(255, 255, 255, 0.05); margin-top: 60px;
-        }
-        .trust-item { display: flex; align-items: center; gap: 15px; }
-        .trust-item i { font-size: 28px; color: var(--primary); }
+        .alert-box { width: 100%; background: #fff4e5; border-right: 5px solid #ffa117; padding: 15px; margin: 20px 0; border-radius: 8px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .rip-container { width: 100%; background: #f1f5f9; padding: 20px; border-radius: 12px; border: 1px dashed #6366f1; margin-bottom: 20px; }
     </style>
 </head>
 <body>
 
 <nav>
     <a href="#" class="logo">BACHER STORE</a>
-    <div class="cart-trigger" onclick="openCart()">
-        <i class="fas fa-shopping-cart"></i>
-        <span class="cart-count" id="cartCount">0</span>
-    </div>
 </nav>
 
 <div class="container">
-    <h2 class="section-title">العروض المميزة</h2>
     <div class="products-grid">
-        <div class="card iptv-card">
-            <i class="fas fa-satellite-dish"></i>
-            <h3>IPTV 4K Ultra</h3>
-            <p>أكثر من 10,000 قناة + مكتبة أفلام</p>
-            <div class="price">15$</div>
-            <div class="btn-group">
-                <button class="btn btn-cart" onclick="addToCart('IPTV 4K', 15)">إضافة للسلة</button>
-                <button class="btn btn-buy" onclick="quickBuy('IPTV 4K', 15)">شراء الآن</button>
-            </div>
-        </div>
-
         <div class="card">
-            <i class="fab fa-steam"></i>
-            <h3>Steam Premium</h3>
-            <p>حسابات أصلية بضمان كامل</p>
-            <div class="price">20$</div>
-            <div class="btn-group">
-                <button class="btn btn-cart" onclick="addToCart('Steam Acc', 20)">إضافة للسلة</button>
-                <button class="btn btn-buy" onclick="quickBuy('Steam Acc', 20)">شراء الآن</button>
-            </div>
+            <h3>IPTV 4K Ultra</h3>
+            <p>10,000 قناة</p>
+            <div style="font-size: 25px; font-weight: 900; color: var(--accent);">15$</div>
+            <button class="btn-buy" onclick="openPayment('IPTV 4K Ultra', '15')">شراء الآن</button>
         </div>
     </div>
 </div>
 
-<section class="trust-bar">
-    <div class="trust-item"><i class="fas fa-shield-check"></i> <div><h4>ثقة وأمان</h4><p>حقوقك محفوظة بالكامل</p></div></div>
-    <div class="trust-item"><i class="fas fa-undo"></i> <div><h4>استرداد الأموال</h4><p>ضمان في حال وجود خلل</p></div></div>
-</section>
-
-<div id="payModal" class="modal">
+<!-- Modal -->
+<div id="payment-modal" class="modal">
     <div class="modal-content">
-        <div class="close-modal" onclick="closeModal()">&times;</div>
-        
+        <span class="close-modal" onclick="closeModal()">&times;</span>
         <h3>تأكيد الطلب</h3>
-        <p style="background: #fef2f2; color: #b91c1c; padding: 10px; border-radius: 12px; font-size: 13px; margin: 20px 0; font-weight: bold;">
-            <i class="fas fa-history"></i> التسليم خلال 12 ساعة من التحويل.
-        </p>
+        
+        <div id="order-info"></div>
 
-        <div class="rip-box">
-            <span style="color: #64748b; font-size: 14px; display: block; margin-bottom: 10px;">رقم الـ RIP للدفع (Baridimob):</span>
-            <span class="rip-text" id="ripValue">00799999004422427407</span>
-            <button onclick="copyRip()" style="background: #0f172a; color: white; border: none; padding: 8px 20px; border-radius: 10px; cursor: pointer; font-weight: bold;">نسخ الرقم <i class="fas fa-copy"></i></button>
+        <div class="alert-box">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span>التسليم خلال 12 ساعة</span>
         </div>
 
-        <a href="https://wa.me/213XXXXXXXXX" class="wa-btn">
-            إرسال الوصل وتأكيد الطلب
-            <i class="fab fa-whatsapp"></i>
-        </a>
+        <div class="rip-container">
+            <p style="margin-bottom: 10px;">رقم الـ RIP:</p>
+            <strong style="font-size: 18px;">00799999004422427407</strong>
+        </div>
+
+        <form id="payment-form">
+            <button type="submit" class="btn-buy" style="width: 100%;">تأكيد وإرسال للواتساب</button>
+        </form>
     </div>
 </div>
 
 <script>
-    let cart = [];
-    
-    // إغلاق النافذة عند الضغط على X
+    function openPayment(productName, price) {
+        const modal = document.getElementById('payment-modal');
+        const orderInfo = document.getElementById('order-info');
+        
+        orderInfo.innerHTML = `
+            <div style="background: #f1f5f9; padding: 15px; border-radius: 10px; margin-bottom: 15px; width: 100%;">
+                <strong>المنتج:</strong> ${productName} <br>
+                <strong>المبلغ:</strong> <span style="color: #10b981;">${price}$</span>
+            </div>
+        `;
+        modal.style.display = 'block';
+    }
+
     function closeModal() {
-        document.getElementById('payModal').style.display = 'none';
+        document.getElementById('payment-modal').style.display = 'none';
     }
 
-    function addToCart(n, p) {
-        cart.push({n, p});
-        document.getElementById('cartCount').innerText = cart.length;
-    }
-
-    function openCart() {
-        if(cart.length === 0) return alert("السلة فارغة!");
-        let total = cart.reduce((s, i) => s + i.p, 0);
-        quickBuy("إجمالي السلة", total);
-    }
-
-    function quickBuy(n, p) {
-        document.getElementById('payModal').style.display = 'flex';
-    }
-
-    function copyRip() {
-        navigator.clipboard.writeText("00799999004422427407");
-        alert("تم نسخ الرقم بنجاح!");
-    }
-
-    // إغلاق النافذة عند الضغط في أي مكان خارجها
     window.onclick = function(event) {
-        let modal = document.getElementById('payModal');
-        if (event.target == modal) {
-            closeModal();
-        }
+        const modal = document.getElementById('payment-modal');
+        if (event.target == modal) closeModal();
     }
+
+    document.getElementById('payment-form').onsubmit = function(e) {
+        e.preventDefault();
+        // يمكنك تغيير الرابط هنا لرابط الواتساب الخاص بك
+        window.location.href = "https://wa.me/213XXXXXXXXX";
+    };
 </script>
 
 </body>
